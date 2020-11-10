@@ -12,7 +12,6 @@ class Station
 
   def trains_by_type(type)
     @trains.filter { |train| train.type == type }
-    return [*train]
   end
 
   def delete_train(train)
