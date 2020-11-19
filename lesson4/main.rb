@@ -5,7 +5,6 @@ require_relative "passenger_train"
 require_relative "cargo_train"
 
 class Menu
-
   attr_reader :trains, :stations, :routes
 
   def initialize
@@ -13,6 +12,57 @@ class Menu
     @stations = []
     @routes = []
   end
+
+  def run
+    main = Menu.new
+    loop do
+      puts ' Выберите действие:
+      1.  Создать станцию
+      2.  Создать поезд
+      3.  Создать новый маршрут
+      4.  Добавить станцию в маршрут
+      5.  Удалить станцию из маршрута
+      6.  Назначить маршрут поезду
+      7.  Добавить вагоны к поезду
+      8.  Отцепить вагоны от поезда
+      9.  Переместить поезд по маршруту вперед и назад
+      10. Вывести список станций и список поездов на станции
+      0.  Выход из программы'
+
+      choise = gets.chomp.to_i
+
+      break if choise == 0
+      case choise
+      when 1
+        main.create_stations
+        puts main.stations
+      when 2
+        main.create_trains
+      when 3
+        main.add_route
+      when 4
+        main.add_station_to_route
+      when 5
+        main.remove_station_to_route
+      when 6
+        main.set_route
+      when 7
+        main.add_carriage
+      when 8
+        main.delete_carriage
+      when 9
+        main.move_route
+      when 10
+        main.list_station_and_train
+      else
+        puts 'Выберите пункт из списка!'
+      end
+    end
+  end
+
+  protected
+
+  attr_writer :routes, :trains, :stations
 
   def create_stations
     puts 'Введите название станции'
@@ -129,10 +179,6 @@ class Menu
     trains.each { |train| puts "Номер поезда: #{train.number} Тип: #{train.type}" }
   end
 
-  protected
-
-  attr_writer :routes, :trains, :stations
-
   def select_route
     puts 'Выберите маршрут из списка:'
     routes.each_index { |iroute| puts "#{iroute} - #{routes[iroute].stations.to_s}" }
@@ -153,50 +199,8 @@ class Menu
    index_carriage = gets.chomp.to_i
    one_train.train[index_carriage]
   end
-
 end
 
-  main = Menu.new
-  loop do
-    puts ' Выберите действие:
-    1.  Создать станцию
-    2.  Создать поезд
-    3.  Создать новый маршрут
-    4.  Добавить станцию в маршрут
-    5.  Удалить станцию из маршрута
-    6.  Назначить маршрут поезду
-    7.  Добавить вагоны к поезду
-    8.  Отцепить вагоны от поезда
-    9.  Переместить поезд по маршруту вперед и назад
-    10. Вывести список станций и список поездов на станции
-    0.  Выход из программы'
+menu = Menu.new
+menu.run
 
-    choise = gets.chomp.to_i
-
-  break if choise == 0
-  case choise
-  when 1
-    main.create_stations
-    puts main.stations
-  when 2
-    main.create_trains
-  when 3
-    main.add_route
-  when 4
-    main.add_station_to_route
-  when 5
-    main.remove_station_to_route
-  when 6
-    main.set_route
-  when 7
-    main.add_carriage
-  when 8
-    main.delete_carriage
-  when 9
-    main.move_route
-  when 10
-    main.list_station_and_train
-  else
-    puts 'Выберите пункт из списка!'
-  end
-end
