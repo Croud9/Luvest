@@ -8,28 +8,32 @@ module InstanceCounter
 
   def self.included(base)
     base.extend ClassMethods
-    base.send :include, InstanceMethods
+    base.include InstanceMethods
   end
 
   module ClassMethods
+    attr_accessor :instance
 
     def instances
-      @instances
-    end
-
-    def counter_up
-      @instances ||= 0
-      @instances += 1
+      if instance.nil?
+        0
+      else
+        instance
+      end
     end
 
   end
 
   module InstanceMethods
 
+    protected
+
     def register_instance
-      self.class.send :counter_up
+      self.class.instance ||= 0
+      self.class.instance += 1
     end
 
   end
-  
+
 end
+
