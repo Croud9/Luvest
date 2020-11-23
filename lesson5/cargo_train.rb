@@ -3,7 +3,7 @@ class CargoTrain < Train
 
   def initialize
     @type = :cargo
-    register_instance
+    super(register_instance)
   end
 
 end
