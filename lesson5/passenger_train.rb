@@ -1,8 +1,8 @@
-class CargoTrain < Train
+class PassengerTrain < Train
   attr_reader :type
 
   def initialize
-    @type = :cargo
+    @type = :passenger
     super(register_instance)
   end
 
