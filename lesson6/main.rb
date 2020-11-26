@@ -75,7 +75,7 @@ class Menu
   def create_trains
     number_format = /^[a-zA-Zа-яА-Я0-9\s]{1,3}-*[a-zA-Zа-яА-Я0-9\s]{1,3}$/u
     
-        begin
+    begin
       puts 'Введите номер поезда'
       number = gets.chomp
       raise if number !~ number_format
