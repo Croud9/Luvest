@@ -75,7 +75,7 @@ class Menu
   def create_trains
     number_format = /^[a-zA-Zа-яА-Я0-9\s]{1,3}-*[a-zA-Zа-яА-Я0-9\s]{1,3}$/u
     
-    begin
+        begin
       puts 'Введите номер поезда'
       number = gets.chomp
       raise if number !~ number_format
@@ -88,16 +88,15 @@ class Menu
       1. Пассажирский,
       2. Грузовой'
       type = gets.chomp.to_i
+      if type == 1
+        one_train = Train.new(number, :passenger)
+      elsif type == 2
+        one_train = Train.new(number, :cargo)
+      end
       raise if type < 1 || type > 2
     rescue
-      puts 'Введено неправильное значение! Введите 1 или 2. Попробуйте еще раз'
+        puts 'Введено неправильное значение! Введите 1 или 2. Попробуйте еще раз'
       retry
-    end
-
-    if type == 1
-      one_train = Train.new(number, :passenger)
-    elsif type == 2
-      one_train = Train.new(number, :cargo)
     end
 
     puts "Поезд номер #{one_train.number}, тип #{one_train.type} создан успешно!" if one_train != nil
