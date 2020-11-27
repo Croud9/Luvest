@@ -16,9 +16,9 @@ class Train
     @number = number
     @type = type
     @train = []
+    validate!
     @@trains[number] = self
     register_instance
-    validate!
   end
 
   def self.find(number)
